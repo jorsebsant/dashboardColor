@@ -34,7 +34,7 @@ class Data {
       $g = new Group();
       $g->id = "group_".$group['id'];
       $g->name = $group['name'];
-      $g->expanded = false;
+      $g->expanded = true;
       $g->children = array();
       $this->addProjects($group, $g);      
     }  
@@ -69,6 +69,10 @@ class Data {
     $e->resource = $resource['id'];
     $e->text = $resource['name'];
     $e->backColor = "#000000";
+    $e->barHidden = true;
+    $e->tags= new stdClass();
+    $e->tags->detail="Detailed event description";
+    $e->tags->type= "important"; 
     $this->events[] = $e;       
   }
 
@@ -82,27 +86,13 @@ class Data {
           $t = new Tasks();
           $t->id = $tasklist['id'];
           $t->name = $key;
+          $tasklist["name"] = $key;
+          $this->addEvents($tasklist);
           $r->children[]= $t;
         }               
       }
     }
   }
-
-  // public function addTasksEvents($tasks){
-  //    //Añadir elemento a los eventos!
-  //   $time = strtotime($resource["startDate"]);
-  //   $startDate = date('Y-m-d',$time);
-  //   $time = strtotime($resource["endDate"]);
-  //   $endDate = date('Y-m-d',$time);
-  //   $e = new Event();
-  //   $e->start = $startDate;
-  //   $e->end = $endDate;
-  //   $e->id = "evento_".$resource["id"];
-  //   $e->resource = $resource['id'];
-  //   $e->text = $resource['name'];
-  //   $e->backColor = "#000000";
-  //   $this->events[] = $e;    
-  //}
 
   public function generateFiles(){
     $this->createJsonFile("data", $this->groups);
