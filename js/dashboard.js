@@ -3,6 +3,7 @@ function Dashboard(){
 		this.config = {
 	      startDate: new DayPilot.Date("2017-04-01").firstDayOfMonth(),	     
 	      days: 800,
+	      //bubble: new DayPilot.Bubble(),
 	      timeHeaders: [
 	          { groupBy: "Month", format: "MMMM yyyy" },
 	          { groupBy: "Day", format: "d" }
@@ -10,7 +11,8 @@ function Dashboard(){
 	      scale: "Day",
 	      resources:[],
 	      treeEnabled: true,
-	      events: []
+	      events: [],
+	      dynamicEventRendering: "Disabled"
 	    }		
 	}
 
@@ -29,15 +31,36 @@ Dashboard.prototype.getInitialData = function(){
 
 Dashboard.prototype.getEvents = function(){
 	var _this = this;
-	$.get("./controller/eventos.json").done(function(events){
-		_this.config.events = events;
-		_this.createCheduler();
-	});
+	$.ajax({
+        url: './controller/eventos.json',
+        success: function (events) {
+           _this.config.events = events;
+		   _this.createCheduler();
+        },
+        async: false
+    });
+	// $.get("./controller/eventos.json").done(function(events){
+		
+	// });
 }
 
 Dashboard.prototype.createCheduler= function(){
-	console.log(this.config);
-	$("#dp").daypilotScheduler(this.config);
+	
+	var config = this.config;
+	var dp = $("#dp").daypilotScheduler(config);
+	
+	// dp.onEventClick = function(args) {
+	// 	console.log(args);
+ //        var modal = new DayPilot.Modal();
+ //        modal.onClosed = function(args) {
+ //            // reload all events
+ //            var result = args.result;
+ //            if (result && result.status === "OK") {
+ //                loadEvents();
+ //            }
+ //        };
+ //        modal.showHtml("<h1>HOLA WORLD</h1>");
+ //    };
 }
 
  

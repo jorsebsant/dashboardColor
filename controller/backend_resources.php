@@ -68,11 +68,10 @@ class Data {
     $e->id = "evento_".$resource["id"];
     $e->resource = $resource['id'];
     $e->text = $resource['name'];
-    $e->backColor = "#000000";
-    $e->barHidden = true;
-    $e->tags= new stdClass();
-    $e->tags->detail="Detailed event description";
-    $e->tags->type= "important"; 
+    $e->backColor = "#039BE5";
+    $e->barHidden = true;    
+    //$e->bubbleHtml="Detailed event description";
+    
     $this->events[] = $e;       
   }
 
