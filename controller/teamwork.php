@@ -54,8 +54,7 @@ class Teamwork{
 		foreach ($this->projects as $key => $value) {
 			if(!empty($value)){
 				$action = "projects/{$value[0]['id']}/tasks.json";
-				$todoitems = $this->curlApi($action)["todo-items"];
-				
+				$todoitems = $this->curlApi($action)["todo-items"];				
 				
 				foreach ($todoitems as $item) {
 					$sortItems[$item['project-id']][$item['todo-list-name']][] =$item;
@@ -64,7 +63,6 @@ class Teamwork{
 			
 		}
 		$this->tasks = $this->orderTasks($sortItems);
-		//echo json_encode($this->tasks);
 		return $this->tasks;
 	}
 

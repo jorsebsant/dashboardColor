@@ -24,8 +24,18 @@ class Data {
     $teamwork = new Teamwork();
     $this->scheduler_groups = $teamwork->getCompanies();
     $this->projects = $teamwork->getProyectsPerCompany();
-    $this->tasks = $teamwork->getTasksPerProyect();
-    //echo json_encode($teamwork->getTasksPerProyect());
+    $this->tasks = $teamwork->getTasksPerProyect();  
+    $this->colors = array(
+                      "26432" => "#263238", //COLOR
+                      "88563" => "#252525", //ARISTAS
+                      "26515" => "#FFC107", //ASTURIAS
+                      "78424" => "#1A237E", //GEOMATRIX
+                      "75705" => "#039BE5", //ULTRA
+                      "82068" => "#B71C1C", //ULTRACK
+                      "27329" => "#3F51B5", //ILUMNO
+                      "83584" => "#D50000", //INNOVATE
+                      "27328" => "#64B5F6" //SMART
+                    );  
   }
 
   public function addGroups(){
@@ -41,22 +51,23 @@ class Data {
   }
 
   public function addProjects($group,$obj){
-    $projects = $this->projects[$group['id']];
+    $id_cliente = $group['id'];
+    $projects = $this->projects[$id_cliente];
     if(!empty($projects)){
         
         foreach($projects as $resource) {
           $r = new Resource();
           $r->id = $resource['id'];
           $r->name = $resource['name'];
-          $this->addEvents($resource);
-          $this->addTasks($r);          
+          $this->addEvents($resource,$id_cliente);
+          $this->addTasks($r,$id_cliente);          
           $obj->children[] = $r;
         }
         $this->groups[] = $obj;
     }  
   }
 
-  public function addEvents($resource){
+  public function addEvents($resource, $id_cliente){
     //Añadir elemento a los eventos!
     $time = strtotime($resource["startDate"]);
     $startDate = date('Y-m-d',$time);
@@ -67,15 +78,17 @@ class Data {
     $e->end = $endDate;
     $e->id = "evento_".$resource["id"];
     $e->resource = $resource['id'];
-    $e->text = $resource['name'];
-    $e->backColor = "#039BE5";
-    $e->barHidden = true;    
-    //$e->bubbleHtml="Detailed event description";
+    $e->text = "";
+    if(isset($this->colors[$id_cliente])){
+      $e->backColor = $this->colors[$id_cliente];
+      $e->cssClass = "white_text";
+    }
     
+    $e->barHidden = true;    
     $this->events[] = $e;       
   }
 
-  public function addTasks($r){
+  public function addTasks($r,$id_cliente){
     
     if(!empty($this->tasks[$r->id])){
 
@@ -86,7 +99,7 @@ class Data {
           $t->id = $tasklist['id'];
           $t->name = $key;
           $tasklist["name"] = $key;
-          $this->addEvents($tasklist);
+          $this->addEvents($tasklist,$id_cliente);
           $r->children[]= $t;
         }               
       }
