@@ -1,5 +1,4 @@
 <?php
-//
 class Teamwork{
 	
 	private static $key="udder452cache";				
