@@ -24,7 +24,8 @@ class Data {
     $teamwork = new Teamwork();
     $this->scheduler_groups = $teamwork->getCompanies();
     $this->projects = $teamwork->getProyectsPerCompany();
-    $this->tasks = $teamwork->getTasksPerProyect();  
+    $this->tasks = $teamwork->getTasksPerProyect();
+    $this->tasksLists = $teamwork->getTaskLists();  
     $this->colors = array(
                       "26432" => "#263238", //COLOR
                       "88563" => "#252525", //ARISTAS
@@ -60,7 +61,7 @@ class Data {
           $r->id = $resource['id'];
           $r->name = $resource['name'];
           $this->addEvents($resource,$id_cliente);
-          $this->addTasks($r,$id_cliente);          
+          $this->addTasksLists($r,$id_cliente);          
           $obj->children[] = $r;
         }
         $this->groups[] = $obj;
@@ -88,11 +89,11 @@ class Data {
     $this->events[] = $e;       
   }
 
-  public function addTasks($r,$id_cliente){
+  public function addTasksLists($r,$id_cliente){
     
-    if(!empty($this->tasks[$r->id])){
+    if(!empty($this->tasksLists[$r->id])){
 
-      foreach($this->tasks[$r->id] as $key => $tasklist) {
+      foreach($this->tasksLists[$r->id] as $key => $tasklist) {
        
         if($tasklist['startDate'] != "" && $tasklist['endDate'] != ""){
           $t = new Tasks();

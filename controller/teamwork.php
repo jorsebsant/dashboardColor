@@ -10,6 +10,7 @@ class Teamwork{
 		$this->companies = [];
 		$this->projects = [];
 		$this->tasks = [];
+		$this->taskList = [];
 	}
 
 	private function curlApi($action){
@@ -48,24 +49,33 @@ class Teamwork{
 	}
 
 	public function getTasksPerProyect(){
-		$tasks = [];
-		$sortItems = [];
+		
 		foreach ($this->projects as $key => $value) {
 			if(!empty($value)){
 				$action = "projects/{$value[0]['id']}/tasks.json";
 				$todoitems = $this->curlApi($action)["todo-items"];				
+				$this->tasks[] = $todoitems;
+				$this->orderTasksPerTasklist($todoitems);
 				
-				foreach ($todoitems as $item) {
-					$sortItems[$item['project-id']][$item['todo-list-name']][] =$item;
-				}
 			}
 			
 		}
-		$this->tasks = $this->orderTasks($sortItems);
+				
 		return $this->tasks;
 	}
 
-	public function orderTasks($projects){
+	public function orderTasksPerTaskList($todoitems){
+		foreach ($todoitems as $item) {
+			$this->taskList[$item['project-id']][$item['todo-list-name']][] =$item;
+		}
+	}
+
+	public function getTaskLists(){
+		
+		return $this->orderTasksLists($this->taskList);
+	}
+
+	public function orderTasksLists($projects){
 		$sortTask = [];
 		foreach ($projects as $key => $project) {
 			
