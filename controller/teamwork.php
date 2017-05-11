@@ -52,16 +52,15 @@ class Teamwork{
 		
 		foreach ($this->projects as $key => $value) {
 			if(!empty($value)){
-				$action = "projects/{$value[0]['id']}/tasks.json";
+				$action = "projects/{$value[0]['id']}/tasks.json?getSubTasks=false";
 				$todoitems = $this->curlApi($action)["todo-items"];				
-				$this->tasks[] = $todoitems;
-				$this->orderTasksPerTasklist($todoitems);
-				
+				$this->tasks = array_merge($this->tasks,$todoitems);
+				$this->orderTasksPerTasklist($todoitems);				
 			}
 			
 		}
-				
-		return $this->tasks;
+		//echo json_encode($this->tasks);		
+		return $this->orderTasks($this->tasks);
 	}
 
 	public function orderTasksPerTaskList($todoitems){
@@ -73,6 +72,14 @@ class Teamwork{
 	public function getTaskLists(){
 		
 		return $this->orderTasksLists($this->taskList);
+	}
+
+	public function orderTasks($tasks){
+		$sortTask = [];
+		foreach ($tasks as $task) {
+			$sortTask[$task['todo-list-id']][] = $task;
+		}
+		return $sortTask;
 	}
 
 	public function orderTasksLists($projects){
@@ -92,7 +99,7 @@ class Teamwork{
 						}
 					}
 					if(!isset($sortTask[$key][$name]["endDate"])){
-						$sortTask[$key][$name]["endDate"] = $todoitem['start-date'];
+						$sortTask[$key][$name]["endDate"] = $todoitem['due-date'];
 					}else{
 						if($todoitem["due-date"] > $sortTask[$key][$name]["endDate"] || $sortTask[$key][$name]["endDate"]  == ""){
 

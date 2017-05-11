@@ -5,7 +5,8 @@ require_once 'teamwork.php';
 class Group {}
 class Resource {}
 class Event {}
-class Tasks{}
+class TasksList{}
+class Task{}
 
 $d = new Data();
 $d->addGroups();
@@ -96,15 +97,37 @@ class Data {
       foreach($this->tasksLists[$r->id] as $key => $tasklist) {
        
         if($tasklist['startDate'] != "" && $tasklist['endDate'] != ""){
-          $t = new Tasks();
-          $t->id = $tasklist['id'];
-          $t->name = $key;
+          $tl = new TasksList();
+          $tl->id = $tasklist['id'];
+          $tl->name = $key;
           $tasklist["name"] = $key;
+          $this->addTasks($tl,$id_cliente);
           $this->addEvents($tasklist,$id_cliente);
-          $r->children[]= $t;
+          $r->children[]= $tl;
         }               
       }
     }
+  }
+
+  public function addTasks($tl,$id_cliente){
+    
+    if(!empty($this->tasks[$tl->id])){
+
+      foreach($this->tasks[$tl->id] as $key => $task) {        
+        $task["startDate"] = $task["start-date"];
+        $task["endDate"] = $task["due-date"];
+        //Estandarizar el objeto para que pueda usar el mismo método de evento
+        if($task['startDate'] != "" && $task['endDate'] != ""){
+          $t = new Task();
+          $t->id = $task["id"];
+          $t->name = $task["content"];
+          $task["name"] = $task["content"];          
+          $this->addEvents($task,$id_cliente);
+          $tl->children[]= $t;
+        }               
+      }
+    }
+
   }
 
   public function generateFiles(){
