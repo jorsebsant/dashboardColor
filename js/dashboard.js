@@ -38,22 +38,9 @@ Dashboard.prototype.getEvents = function(){
 }
 
 Dashboard.prototype.createCheduler = function(){
-	console.log(this.config);
+
 	var config = this.config;
-	var dp = $("#dp").daypilotScheduler(config);
-	
-	// dp.onEventClick = function(args) {
-	// 	console.log(args);
- //        var modal = new DayPilot.Modal();
- //        modal.onClosed = function(args) {
- //            // reload all events
- //            var result = args.result;
- //            if (result && result.status === "OK") {
- //                loadEvents();
- //            }
- //        };
- //        modal.showHtml("<h1>HOLA WORLD</h1>");
- //    };
+	$("#dp").daypilotScheduler(config);
 }
 
 Dashboard.prototype.changeCellScale = function(obj){
@@ -87,10 +74,10 @@ Dashboard.prototype.updateScheduler = function(){
 }
 
 Dashboard.prototype.cleanScheduler = function(){
+  $("#dp").html("");
   $("#dp").removeAttr("style");
   $("#dp").removeAttr("class");
-  $("#dp").html("");
-  console.log("limpio");
+  
 }
 
  

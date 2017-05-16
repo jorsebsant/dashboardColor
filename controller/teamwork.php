@@ -23,8 +23,9 @@ class Teamwork{
 		    array( "Authorization: BASIC ". base64_encode( self::$key .":udder452cache" ))
 		);
 		curl_setopt($channel, CURLOPT_ENCODING, '');
-		//Windows
-		curl_setopt($channel, CURLOPT_SSL_VERIFYPEER, false);	
+		//Windows validation for SSL
+		curl_setopt($channel, CURLOPT_SSL_VERIFYPEER, false);
+		//	
 		$json = curl_exec ( $channel );	
 		$obj = json_decode($json, true );
 		curl_close ( $channel );
@@ -59,7 +60,7 @@ class Teamwork{
 			}
 			
 		}
-		//echo json_encode($this->tasks);		
+		
 		return $this->orderTasks($this->tasks);
 	}
 

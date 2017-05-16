@@ -5,14 +5,17 @@ http://www.daypilot.org/
 Use of this software is subject to license terms.
 Version: 2130
 */
+
 if (typeof DayPilot === 'undefined') {
     var DayPilot = {};
+
 };
 if (typeof DayPilot.Global === 'undefined') {
     DayPilot.Global = {};
 };
 (function() {
-    if (typeof DayPilot.$ !== 'undefined') {
+
+    if (typeof DayPilot.$ !== 'undefined') {        
         return;
     };
     DayPilot.$ = function(id) {
@@ -946,6 +949,7 @@ if (typeof DayPilot.Global === 'undefined') {
         return DayPilot.am.cached;
     };
     (function() {
+
         DayPilot.pop = wave;
 
         function wave($a, $0j) {
@@ -20449,7 +20453,7 @@ if (typeof DayPilotScheduler === 'undefined') {
     })();
     var DayPilotScheduler = {};
     var $c = function() {};
-    var debug = false;
+    var debug = true;
     var $d = function($e) {
         if (!debug) {
             return;
@@ -34873,13 +34877,16 @@ if (typeof DayPilotScheduler === 'undefined') {
     DayPilot.SchedulerVisible.Scheduler = DayPilotScheduler.Scheduler;
     DayPilot.SchedulerVisible.globalHandlers = DayPilotScheduler.globalHandlers;
     if (typeof jQuery !== 'undefined') {
-        (function($) {
+
+        (function($) {  
+                   
             $.fn.daypilotScheduler = function($h) {
+                
                 var $0K = null;
                 var j = this.each(function() {
-                    if (this.daypilot) {
-                        return;
-                    };
+                    // if (this.daypilot) {                        
+                    //     return;
+                    // };
                     var $9y = new DayPilot.Scheduler(this.id, $h);
                     $9y.init();
                     this.daypilot = $9y;
