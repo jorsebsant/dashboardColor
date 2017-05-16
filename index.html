@@ -2,11 +2,11 @@
 <html>
 <head>
 	<title></title>
-	<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  <meta charset="UTF-8">
+	<script  src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
   <script type="text/javascript" src="day-min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style>
   	.white_text{
   		color:white;
@@ -21,11 +21,23 @@
   </style>
 </head>
 <body>
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" data-type="day" class="btn btn-default">Día</button>
+  <button type="button" data-type="month" class="btn btn-default">Mes</button>  
+</div>
 <div id="dp"></div>
+<div id="dp2"></div>
 <script src="js/dashboard.js"></script>
 <script type="text/javascript">
-	var o = new Dashboard();
-	o.init();   
+$(document).ready(function(){
+  var o = new Dashboard();
+  o.init();
+
+  $("button").click(function(){
+    o.changeCellScale(o);    
+  });
+});
+	  
 </script>
 </body>
 </html>
