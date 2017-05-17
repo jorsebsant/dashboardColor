@@ -14,6 +14,8 @@ function Dashboard(){
       dynamicEventRendering: "Disabled"
   }
 
+  this.Scheduler = {};
+
 }
 
 Dashboard.prototype.init= function(){	
@@ -40,7 +42,8 @@ Dashboard.prototype.getEvents = function(){
 Dashboard.prototype.createCheduler = function(){
 
 	var config = this.config;
-	$("#dp").daypilotScheduler(config);
+	this.Scheduler = $("#dp").daypilotScheduler(config);
+  console.log(this.Scheduler)
 }
 
 Dashboard.prototype.changeCellScale = function(obj){
@@ -74,9 +77,8 @@ Dashboard.prototype.updateScheduler = function(){
 }
 
 Dashboard.prototype.cleanScheduler = function(){
-  $("#dp").html("");
-  $("#dp").removeAttr("style");
-  $("#dp").removeAttr("class");
+  
+  this.Scheduler.dispose();
   
 }
 
