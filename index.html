@@ -3,39 +3,30 @@
 <head>
 	<title></title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/color.css">
 	<script  src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
-  <script type="text/javascript" src="day.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <style>
-  	.white_text{
-  		color:white;
-  	}
-  	.scheduler_default_event_inner {
-  		border: 1px white solid;
-  		border-radius: 30px;
-  	}
-    .scheduler_default_corner_inner + div{
-      display: none;
-    }
-  </style>
+  <script type="text/javascript" src="assets/libs/day.js"></script>  
+  
 </head>
 <body>
 <div class="btn-group" role="group" aria-label="...">
-  <button type="button" data-type="day" class="btn btn-default">Día</button>
-  <button type="button" data-type="month" class="btn btn-default">Mes</button>  
+  <button type="button" data-type="Day" class="btn btn-default">Día</button>
+  <button type="button" data-type="Week" class="btn btn-default">Semana</button>
+  <button type="button" data-type="Month" class="btn btn-default">Mes</button>  
 </div>
 <div class="content">
   <div id="dp"></div>
 </div>
-<script src="js/dashboard.js"></script>
+<script src="assets/js/dashboard.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   var o = new Dashboard();
   o.init();
 
   $("button").click(function(){
-    o.changeCellScale(o);    
+    o.changeCellScale(o,$(this));    
   });
 });
 	  

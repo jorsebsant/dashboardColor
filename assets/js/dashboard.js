@@ -11,7 +11,8 @@ function Dashboard(){
       resources:[],
       treeEnabled: true,
       events: [],
-      dynamicEventRendering: "Disabled"
+      dynamicEventRendering: "Disabled",
+      cellWidth : 30
   }
 
   this.Scheduler = {};
@@ -46,25 +47,33 @@ Dashboard.prototype.createCheduler = function(){
   console.log(this.Scheduler)
 }
 
-Dashboard.prototype.changeCellScale = function(obj){
+Dashboard.prototype.changeCellScale = function(obj,$button){
   var _this = obj;
-  var type = $(this).data('type');
-  if(type == "day"){
+  var type = $button.data("type");  
+  if(type == "Day"){
 
     _this.config.timeHeaders = [
       { groupBy: "Month", format: "MMMM/yy" },
       { groupBy: "Day", format: "d" }
     ];
 
-    _this.config.scale = "Day";
+    _this.config.scale = type;
+    
+  }else if(type == "Week"){
+     _this.config.timeHeaders = [
+      { groupBy: "Month", format: "MMMM/yy" },
+      { groupBy: "Week"}
+    ];
 
+    _this.config.scale = type;
   }else{
+    
 
     _this.config.timeHeaders = [
       { groupBy: "Month", format: "MMMM/yy" }
     ];
 
-    _this.config.scale = "Month";
+    _this.config.scale = type;
   }
 
   _this.updateScheduler(); 

@@ -1,0 +1,60 @@
+@import "compass/css3";
+@import "base/fonts";
+*{
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+}
+html, body{
+	padding: 0; 
+	margin: 0;
+}
+
+$NexaBlack: 'NexaBlack', Arial, sans-serif;
+$NexaXBold: 'NexaXBold', Arial, sans-serif;
+$NexaBold: 'NexaBold', Arial, sans-serif;
+$Nexa: 'Nexa', Arial, sans-serif;
+$NexaLight: 'NexaLight', Arial, sans-serif;
+$Gris: #484a4d;
+
+//cuadro DEMO
+.scheduler_default_corner{
+	div:last-child{
+		display: none;
+	}
+}
+//Titulos de dias y numeros
+.scheduler_default_timeheadergroup,
+.scheduler_default_timeheadergroup_inner, 
+.scheduler_default_timeheadercol,
+.scheduler_default_timeheadercol_inner{
+	background: white;
+	border: none;
+}
+//divisores del dashboard
+.scheduler_default_resourcedivider,
+.scheduler_default_matrix_vertical_line, 
+.scheduler_default_matrix_horizontal_line {
+    background: none;
+}
+
+.white_text{
+	color:white;
+}
+//titulos proyectos
+.scheduler_default_tree_image_expand,
+.scheduler_default_tree_image_collapse, 
+.scheduler_default_tree_image_no_children{ 
+	& + div{
+		font-size: 10px;
+		font-family: $NexaBold;
+		color: $Gris;
+	}
+}
+//barras de cara proyecto
+.scheduler_default_event_inner {
+	border: 1px white solid;
+	border-radius: 30px;
+	& + div{
+		display: none;
+	}
+}

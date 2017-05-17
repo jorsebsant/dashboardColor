@@ -31,13 +31,18 @@ class Data {
                       "26432" => "#263238", //COLOR
                       "88563" => "#252525", //ARISTAS
                       "26515" => "#FFC107", //ASTURIAS
+                      "71169" => "#ED773A", //MOODLEROOMS
                       "78424" => "#1A237E", //GEOMATRIX
                       "75705" => "#039BE5", //ULTRA
                       "82068" => "#B71C1C", //ULTRACK
                       "27329" => "#3F51B5", //ILUMNO
+                      "76122" => "#181B17", //VISTA96
                       "83584" => "#D50000", //INNOVATE
-                      "27328" => "#64B5F6" //SMART
-                    );  
+                      "74597" => "#252525", //NORTTHER
+                      "27328" => "#64B5F6", //SMART
+                      "74718" => "#252525", //WWF
+                      "78193" => "#82bc00", //CUN
+                    ); 
   }
 
   public function addGroups(){
