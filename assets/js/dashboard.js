@@ -12,7 +12,8 @@ function Dashboard(){
       treeEnabled: true,
       events: [],
       dynamicEventRendering: "Disabled",
-      cellWidth : 30
+      cellWidth : 30,
+      locale: "es-mx"
   }
 
   this.Scheduler = {};
@@ -20,7 +21,7 @@ function Dashboard(){
 }
 
 Dashboard.prototype.init= function(){	
-	this.getInitialData();  
+	this.getInitialData();   
 }
 
 Dashboard.prototype.getInitialData = function(){
@@ -41,10 +42,10 @@ Dashboard.prototype.getEvents = function(){
 }
 
 Dashboard.prototype.createCheduler = function(){
-
+  
 	var config = this.config;
 	this.Scheduler = $("#dp").daypilotScheduler(config);
-  console.log(this.Scheduler)
+  this.createNavigation();
 }
 
 Dashboard.prototype.changeCellScale = function(obj,$button){
@@ -58,6 +59,7 @@ Dashboard.prototype.changeCellScale = function(obj,$button){
     ];
 
     _this.config.scale = type;
+    _this.config.cellWidth = 30;
     
   }else if(type == "Week"){
      _this.config.timeHeaders = [
@@ -66,18 +68,33 @@ Dashboard.prototype.changeCellScale = function(obj,$button){
     ];
 
     _this.config.scale = type;
+    _this.config.cellWidth = 30;
+
   }else{
     
 
     _this.config.timeHeaders = [
-      { groupBy: "Month", format: "MMMM/yy" }
+      { groupBy: "Month", format: "M/yy" }
     ];
 
     _this.config.scale = type;
+    _this.config.cellWidth = 60;
   }
 
   _this.updateScheduler(); 
 
+}
+
+Dashboard.prototype.createNavigation = function(){
+  var nav = new DayPilot.Navigator("nav");
+  _this = this;
+  nav.selectMode = "week";
+  nav.onTimeRangeSelected = function(args) {
+      _this.Scheduler.startDate = args.start;
+      // load events
+      _this.Scheduler.update();
+  };
+  nav.init();
 }
 
 Dashboard.prototype.updateScheduler = function(){
@@ -89,6 +106,13 @@ Dashboard.prototype.cleanScheduler = function(){
   
   this.Scheduler.dispose();
   
+}
+
+Dashboard.prototype.updateDate = function(){
+  var ini = $("#fecha_inicio").val();
+  var fin = $("#fecha_fin").val();
+  this.Scheduler.startDate = ini;
+  this.Scheduler.update();
 }
 
  
