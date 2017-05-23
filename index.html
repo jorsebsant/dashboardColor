@@ -3,6 +3,7 @@
 <head>
 	<title></title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="assets/css/color.css">
@@ -13,28 +14,30 @@
   
 </head>
 <body>
-<nav>
-
-<div class="date-selectors">
-  <input type="text" id="fecha_inicio">
-  <input type="text" id="fecha_fin">
-  <button class="search">buscar</button>
+<div class="menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></div>
+<div class="nav-menu">
+  <div class="content">
+    <div class="date-selectors">
+      <input type="text" id="fecha_inicio">
+      <input type="text" id="fecha_fin">
+      <button class="search">buscar</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button" data-type="Day" class="btn btn-default">Día</button>
+      <button type="button" data-type="Week" class="btn btn-default">Semana</button>
+      <button type="button" data-type="Month" class="btn btn-default">Mes</button>  
+    </div>
+    <div id="nav"></div>
+  </div>  
 </div>
-<div class="btn-group" role="group" aria-label="...">
-  <button type="button" data-type="Day" class="btn btn-default">Día</button>
-  <button type="button" data-type="Week" class="btn btn-default">Semana</button>
-  <button type="button" data-type="Month" class="btn btn-default">Mes</button>  
-</div>
-</nav>
-<div class="content">
-  <div id="nav"></div>
+<div class="content">  
   <div id="dp"></div>
 </div>
 <script src="assets/js/dashboard.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   var o = new Dashboard();
-  o.init();
+  o.init(); 
 
   $(".btn-group button").click(function(){
     o.changeCellScale(o,$(this));    
@@ -47,6 +50,25 @@ $(document).ready(function(){
   $(".search").click(function(){
     o.updateDate();
   });
+
+  $(".menu-icon").click(function(){
+    var $icon = $(this).find('i');
+    var $menu = $(".nav-menu");     
+    if($icon.hasClass('fa-bars')){      
+      $icon.removeClass('fa-bars');
+      $icon.addClass('fa-times');      
+    }else{
+      $icon.removeClass('fa-times');
+      $icon.addClass('fa-bars');
+    }
+    if($menu.hasClass('active')){      
+      $menu.removeClass('active');           
+    }else{    
+      $menu.addClass('active');
+    }
+    
+  });
+
 });
 	  
 </script>

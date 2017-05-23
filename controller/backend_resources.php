@@ -51,7 +51,7 @@ class Data {
       $g = new Group();
       $g->id = "group_".$group['id'];
       $g->name = $group['name'];
-      $g->expanded = true;
+      $g->expanded = false;
       $g->children = array();
       $this->addProjects($group, $g);      
     }  
