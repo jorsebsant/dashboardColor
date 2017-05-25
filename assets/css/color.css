@@ -210,14 +210,41 @@ html, body {
   .scheduler_default_event_inner + div {
     display: none; }
 
+.scheduler_default_rowheader_inner {
+  padding-left: 30px !important; }
+
+.menu-icon {
+  position: fixed;
+  display: inline-block;
+  z-index: 2;
+  cursor: pointer;
+  top: 3px;
+  left: 6px; }
+  .menu-icon i {
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    position: absolute;
+    color: white; }
+  .menu-icon:after {
+    content: '';
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: grey;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; }
+
 .nav-menu {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
   -moz-transition-property: all;
@@ -235,8 +262,13 @@ html, body {
   .nav-menu .content {
     width: 230px;
     height: 100%;
-    background-color: #3187E7;
+    background-color: #263238;
     padding: 40px 20px;
+    left: -230px;
+    top: 0px;
+    position: absolute;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
     -moz-transition-property: all;
     -o-transition-property: all;
     -webkit-transition-property: all;
@@ -248,34 +280,30 @@ html, body {
     -moz-transition-timing-function: ease-in-out;
     -o-transition-timing-function: ease-in-out;
     -webkit-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-    left: -230px;
-    top: 0px;
-    position: absolute; }
+    transition-timing-function: ease-in-out; }
   .nav-menu.active {
     opacity: 1;
     visibility: visible; }
     .nav-menu.active .content {
       left: 0; }
-
-.menu-icon {
-  position: absolute;
-  display: inline-block;
-  z-index: 2;
-  cursor: pointer; }
-  .menu-icon i {
-    z-index: 1;
-    top: 10px;
-    left: 10px;
-    position: absolute;
-    color: white; }
-  .menu-icon:after {
-    content: '';
-    display: block;
-    position: relative;
-    top: 0;
-    left: 0;
-    background-color: grey;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%; }
+  .nav-menu .date-selectors {
+    text-align: center; }
+    .nav-menu .date-selectors p {
+      color: white;
+      font-weight: 700; }
+    .nav-menu .date-selectors input {
+      background: none;
+      color: white;
+      border: none;
+      border-bottom: 1px solid white;
+      text-align: center; }
+    .nav-menu .date-selectors #fecha_inicio {
+      margin-bottom: 15px; }
+    .nav-menu .date-selectors .search {
+      margin: 25px;
+      background: rgba(0, 0, 0, 0.2);
+      border: none;
+      color: white;
+      border-radius: 5px; }
+  .nav-menu .navigator_default_main {
+    margin: 30px auto; }

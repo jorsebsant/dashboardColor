@@ -1,8 +1,8 @@
 function Dashboard(){
 
 	this.config = {
-      startDate: new DayPilot.Date("2017-04-01").firstDayOfMonth(),	     
-      days: 800,
+      startDate: new DayPilot.Date("2017-04-01").firstDayOfMonth(),
+      days: 650,
       timeHeaders: [
           { groupBy: "Month", format: "MMMM/yy" },
           { groupBy: "Day", format: "d" }
@@ -20,29 +20,28 @@ function Dashboard(){
 
 }
 
-Dashboard.prototype.init= function(){	
-	this.getInitialData();   
+Dashboard.prototype.init = function(){
+	this.getInitialData();
 }
 
 Dashboard.prototype.getInitialData = function(){
 	var _this = this;
-	$.get("./controller/data.json").done(function(resources){
-		console.log(resources);
+	$.get("./controller/data.json").done(function(resources){		
 		_this.config.resources = resources;
 		_this.getEvents();
 	});
 }
 
 Dashboard.prototype.getEvents = function(){
-	var _this = this;	
+	var _this = this;
 	$.get("./controller/eventos.json").done(function(events){
 		_this.config.events = events;
-		_this.createCheduler();	
+		_this.createCheduler();
 	});
 }
 
 Dashboard.prototype.createCheduler = function(){
-  
+
 	var config = this.config;
 	this.Scheduler = $("#dp").daypilotScheduler(config);
   this.createNavigation();
@@ -50,7 +49,7 @@ Dashboard.prototype.createCheduler = function(){
 
 Dashboard.prototype.changeCellScale = function(obj,$button){
   var _this = obj;
-  var type = $button.data("type");  
+  var type = $button.data("type");
   if(type == "Day"){
 
     _this.config.timeHeaders = [
@@ -60,7 +59,7 @@ Dashboard.prototype.changeCellScale = function(obj,$button){
 
     _this.config.scale = type;
     _this.config.cellWidth = 30;
-    
+
   }else if(type == "Week"){
      _this.config.timeHeaders = [
       { groupBy: "Month", format: "MMMM/yy" },
@@ -71,7 +70,7 @@ Dashboard.prototype.changeCellScale = function(obj,$button){
     _this.config.cellWidth = 30;
 
   }else{
-    
+
 
     _this.config.timeHeaders = [
       { groupBy: "Month", format: "M/yy" }
@@ -81,7 +80,7 @@ Dashboard.prototype.changeCellScale = function(obj,$button){
     _this.config.cellWidth = 60;
   }
 
-  _this.updateScheduler(); 
+  _this.updateScheduler();
 
 }
 
@@ -98,21 +97,33 @@ Dashboard.prototype.createNavigation = function(){
 }
 
 Dashboard.prototype.updateScheduler = function(){
-  this.cleanScheduler(); 
+  this.cleanScheduler();
   this.createCheduler();
 }
 
 Dashboard.prototype.cleanScheduler = function(){
-  
+
   this.Scheduler.dispose();
-  
+
 }
 
 Dashboard.prototype.updateDate = function(){
   var ini = $("#fecha_inicio").val();
   var fin = $("#fecha_fin").val();
   this.Scheduler.startDate = ini;
+  if(fin !=""){
+    this.Scheduler.days = this.daysBetween(ini,fin);
+  }
   this.Scheduler.update();
 }
 
- 
+Dashboard.prototype.treatAsUTC = function(date) {
+    var result = new Date(date);
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+}
+
+Dashboard.prototype.daysBetween = function(startDate, endDate) {
+    var millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return (this.treatAsUTC(endDate) - this.treatAsUTC(startDate)) / millisecondsPerDay;
+}

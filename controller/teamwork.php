@@ -66,7 +66,7 @@ class Teamwork{
 
 	public function orderTasksPerTaskList($todoitems){
 		foreach ($todoitems as $item) {
-			$this->taskList[$item['project-id']][$item['todo-list-name']][] =$item;
+			$this->taskList[$item['project-id']][$item['todo-list-name']][] = $item;
 		}
 	}
 
