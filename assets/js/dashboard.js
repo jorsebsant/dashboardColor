@@ -117,6 +117,12 @@ Dashboard.prototype.updateDate = function(){
   this.Scheduler.update();
 }
 
+Dashboard.prototype.updateData = function(){
+  $.get("./controller/backend_resources.php").done(function(){
+    window.location = location;
+  });    
+}
+
 Dashboard.prototype.treatAsUTC = function(date) {
     var result = new Date(date);
     result.setMinutes(result.getMinutes() - result.getTimezoneOffset());

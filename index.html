@@ -29,7 +29,10 @@
       <button type="button" data-type="Week" class="btn btn-default">Semana</button>
       <button type="button" data-type="Month" class="btn btn-default">Mes</button>
     </div>
-    <div id="nav"></div>
+    <div id="nav">
+     <!--NAVEGACIÓN-->
+    </div>
+    <div class="btn btn-success update-data">Actualizar Datos</div>
   </div>
 </div>
 <div class="content">
@@ -51,6 +54,10 @@ $(document).ready(function(){
 
   $(".search").click(function(){
     o.updateDate();
+  });
+
+  $(".update-data").click(function(){
+    o.updateData();
   });
 
   $(".menu-icon").click(function(){
